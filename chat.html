@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>チャット</title>
+
+<script type="text/javascript" src="js/prototype.js">
+</script>	<!-- 自動リロードのための準備 -->
+
+<script type="text/javascript">
+<!--
+var myajax;
+myajax = new Ajax.PeriodicalUpdater(
+	"chat",
+	"stream.php",
+	{
+		"method": "get",
+		"parameters": "p=hoge",
+		frequency: 5,        // 更新間隔（単位：秒）
+		onSuccess: function(request) {
+			// 以下はIEのための記述
+			var str = myajax.options.parameters;
+			var hash = str.parseQuery();
+			hash["ajax_request_id"] = Math.random();
+			hash = $H(hash);
+			myajax.options.parameters = hash.toQueryString();
+		},
+		onComplete: function(request) {
+		},
+		onFailure: function(request) {
+			alert('読み込みに失敗しました。\nページをリロードしてください。');
+			myajax.stop();
+		},
+		onException: function (request) {
+			alert('読み込み中にエラーが発生しました。\nページをリロードしてください。');
+			myajax.stop();
+		}
+	}
+);
+-->
+</script>
+
+</head>
+<body>
+
+<div id="chat">
+<!-- ここに更新内容が入る -->
+</div>
+
+</body>
+</html>
